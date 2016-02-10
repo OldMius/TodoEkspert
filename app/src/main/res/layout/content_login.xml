@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="#aa112233"
+        android:background="@drawable/todo_button_selector"
         android:text="@string/todo_login" />
 
 </LinearLayout>
