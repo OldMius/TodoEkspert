@@ -12,4 +12,26 @@
     tools:context="pl.oldmius.todoekspert.AddTodoActivity"
     tools:showIn="@layout/activity_add_todo">
 
+    <EditText
+        android:id="@+id/content_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/what_needs" />
+
+    <CheckBox
+        android:id="@+id/done_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/content_et"
+        android:text="@string/Done" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/done_cb"
+        android:layout_marginTop="50dp"
+        android:padding="30dp"
+        android:text="@string/add_todo" />
+
 </RelativeLayout>

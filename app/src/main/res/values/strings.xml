@@ -13,5 +13,8 @@
     <string name="refresh">Refresh</string>
     <string name="logout">Logout</string>
     <string name="title_activity_add_todo">Add new Todo</string>
+    <string name="what_needs">What needs to be done?</string>
+    <string name="Done">Done</string>
+    <string name="add_todo">Add Todo</string>
 
 </resources>
