@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="pl.oldmius.todoekspert.LoginActivity">
+    tools:context=".TodoListActivity">
+
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"></include>
 
-    <include layout="@layout/content_login" />
+    <include layout="@layout/content_todo_list" />
 
 
 </android.support.design.widget.CoordinatorLayout>

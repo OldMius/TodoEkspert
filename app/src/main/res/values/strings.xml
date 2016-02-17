@@ -7,4 +7,10 @@
     <string name="this_field_is_required">This field is required</string>
     <string name="login_ok">Login OK</string>
     <string name="wrong_username_or_password">Wrong username or password!</string>
+    <string name="title_activity_tdo_list">TodoEkspertList</string>
+    <string name="action_add">Add</string>
+    <string name="todo_ekspert">TodoEkspert</string>
+    <string name="refresh">Refresh</string>
+    <string name="logout">Logout</string>
+
 </resources>
