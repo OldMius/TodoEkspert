@@ -12,5 +12,6 @@
     <string name="todo_ekspert">TodoEkspert</string>
     <string name="refresh">Refresh</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_add_todo">Add new Todo</string>
 
 </resources>
