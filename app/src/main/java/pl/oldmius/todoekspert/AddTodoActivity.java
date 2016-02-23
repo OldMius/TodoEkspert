@@ -13,7 +13,7 @@ public class AddTodoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+//metoda odpowiedzialna za przycisk powrotu w toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

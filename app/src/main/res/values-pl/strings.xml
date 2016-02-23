@@ -10,4 +10,7 @@
     <string name="wrong_username_or_password">Błędna nazwa użytkownika lub hasło!</string>
     <string name="refresh">Odśwież</string>
     <string name="logout">Wyloguj</string>
+    <string name="what_needs">Co trzeba zrobić?</string>
+    <string name="Done">Gotowe</string>
+    <string name="add_todo">Dodaj nowe zadanie</string>
 </resources>
