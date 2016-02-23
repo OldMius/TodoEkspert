@@ -2,10 +2,12 @@ package pl.oldmius.todoekspert;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private Button button;
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -92,13 +95,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login(String username, String password) {
-        if (username.equals("test") && password.equals("test")) {
-            Toast.makeText(getApplicationContext(), R.string.login_ok, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), TodoListActivity.class);
-            startActivity(intent);
-            finish();
-        } else
-            Toast.makeText(getApplicationContext(), R.string.wrong_username_or_password, Toast.LENGTH_SHORT).show();
+        AsyncTask<String, Integer, Boolean> asyncTask = new AsyncTask<String, Integer, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                String username = params[0];
+                String password = params[1];
+
+                for (int i = 0; i < 100; i++) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    publishProgress(i);
+                    //button.setText(String.valueOf(i));
+                }
+
+
+                return username.equals("test") && password.equals("test");
+
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+                Log.d(TAG, "Progres:" + values[0]);
+
+            }
+
+            @Override
+            protected void onPostExecute(Boolean logged) {
+                super.onPostExecute(logged);
+                button.setEnabled(true);
+                if (logged) {
+                    Toast.makeText(getApplicationContext(), R.string.login_ok, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), TodoListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                button.setEnabled(false);
+            }
+        };
+
+        asyncTask.execute(username, password);
+
 
     }
 
