@@ -1,9 +1,11 @@
 package pl.oldmius.todoekspert;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,6 +28,8 @@ import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String SESSION_TOKEN = "sessionToken";
+    public static final String OBJECT_ID = "objectId";
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button button;
     private EditText usernameEditText;
@@ -137,6 +141,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if (result.has("error")) {
                     Toast.makeText(getApplicationContext(), "Error:" + result.optString("error"), Toast.LENGTH_SHORT).show();
                 } else {
+                    String sessionToken = result.optString(SESSION_TOKEN);
+                    String userId = result.optString(OBJECT_ID);
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putString(SESSION_TOKEN, sessionToken);
+                    edit.putString(OBJECT_ID, userId);
+                    edit.apply();
+
                     Toast.makeText(getApplicationContext(), R.string.login_ok, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), TodoListActivity.class);
                     startActivity(intent);
