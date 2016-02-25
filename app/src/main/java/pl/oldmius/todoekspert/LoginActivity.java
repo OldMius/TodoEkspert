@@ -19,6 +19,11 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -95,24 +100,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login(String username, String password) {
-        AsyncTask<String, Integer, Boolean> asyncTask = new AsyncTask<String, Integer, Boolean>() {
+        AsyncTask<String, Integer, JSONObject> asyncTask = new AsyncTask<String, Integer, JSONObject>() {
             @Override
-            protected Boolean doInBackground(String... params) {
+            protected JSONObject doInBackground(String... params) {
                 String username = params[0];
                 String password = params[1];
 
-                for (int i = 0; i < 100; i++) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    publishProgress(i);
-                    //button.setText(String.valueOf(i));
+                try {
+                    String result = HttpUtils.getLogin(username, password);
+                    Log.d(TAG, "Result:" + result);
+                    return new JSONObject(result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
 
-                return username.equals("test") && password.equals("test");
+                return null;
 
             }
 
@@ -124,15 +129,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            protected void onPostExecute(Boolean logged) {
-                super.onPostExecute(logged);
+            protected void onPostExecute(JSONObject result) {
+                super.onPostExecute(result);
                 button.setEnabled(true);
-                if (logged) {
+                if (result == null) {
+                    Toast.makeText(getApplicationContext(), "Connection Error!", Toast.LENGTH_SHORT).show();
+                } else if (result.has("error")) {
+                    Toast.makeText(getApplicationContext(), "Error:" + result.optString("error"), Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(getApplicationContext(), R.string.login_ok, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), TodoListActivity.class);
                     startActivity(intent);
                     finish();
                 }
+
             }
 
             @Override
